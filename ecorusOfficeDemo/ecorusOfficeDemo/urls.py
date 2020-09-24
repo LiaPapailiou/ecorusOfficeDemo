@@ -9,5 +9,6 @@ router.register(r'persons', views.PersonView, 'office')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('frontend.urls')),
     path('api/', include(router.urls))
 ]

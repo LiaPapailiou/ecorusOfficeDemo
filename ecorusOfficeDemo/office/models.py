@@ -14,14 +14,21 @@ class Person(models.Model):
     self.person_name = new_name
     return self.person_name
 
+  def __str__(self):
+    return self.person_name
+
 
 class Office(models.Model):
   office_name = models.CharField(max_length=50)
-  peopleWorking = ArrayField(models.CharField(max_length=20),default=[], blank=True)
+  peopleWorking = ArrayField(models.CharField(max_length=20),default='list', blank=True)
 
   def startWorkingFor(self, person=Person):
     self.peopleWorking.append(person.person_name)
   
   def finishedWorkingFor(self, person=Person):
     self.peopleWorking.remove(person.person_name)
+  
+  def __str__(self):
+      return self.office_name
+  
 
