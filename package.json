@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development ./ecorusOfficeDemo/frontend/src/index.js --output ./ecorusOfficeDemo/frontend/static/frontend/main.js",
+    "dev": "webpack --mode development --watch ./ecorusOfficeDemo/frontend/src/index.js --output ./ecorusOfficeDemo/frontend/static/frontend/main.js",
     "build": "webpack --mode production ./ecorusOfficeDemo/frontend/src/index.js --output ./ecorusOfficeDemo/frontend/static/frontend/main.js"
   },
   "repository": {
@@ -29,6 +29,8 @@
   "dependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
-  }
+    "react-dom": "^16.13.1",
+    "shortid": "^2.2.15"
+  },
+  "proxy": "http://localhost:8000"
 }

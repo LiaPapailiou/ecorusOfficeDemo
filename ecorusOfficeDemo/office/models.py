@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
-
+import uuid
 
 class Person(models.Model):
   person_name = models.CharField(max_length=20)
   person_age = models.IntegerField()
+  # office = models.ForeignKey('Office', related_name='employees', on_delete=models.CASCADE, default=uuid.uuid4)
 
   def happyBirthday(self):
     self.person_age += 1
