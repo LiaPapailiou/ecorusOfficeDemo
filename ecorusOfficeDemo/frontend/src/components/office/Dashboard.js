@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react';
-import Form from './Form';
+import FormEmployees from './FormEmployees';
+import FormOffice from './FormOffice';
 import Employees from './Employees';
 import Offices from './Offices';
 
 export default function Dashboard() {
   return (
     <Fragment>
-      {/* <Form /> */ }
+      <FormEmployees />
+      <FormOffice />
       <Offices />
       <Employees />
     </Fragment>
