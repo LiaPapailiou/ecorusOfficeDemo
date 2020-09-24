@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import shortid from 'shortid';
+import axios from 'axios';
 
 export class Offices extends Component {
   constructor(props) {
@@ -9,19 +10,35 @@ export class Offices extends Component {
       spinner: "Loading...",
     };
   }
-  componentDidMount() {
-    this.fetchData(`http://localhost:8000/api/offices/`);;
-  }
+
   fetchData = (url) => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => this.setState({ data }));
   };
 
+  handleDelete = (e, id) => {
+    axios
+      .delete(`/api/offices/${id}/`)
+      .then((res) => {
+        this.setState((previousState) => {
+          return {
+            data: previousState.data.filter((p) => p.id !== id)
+          };
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  componentDidMount() {
+    this.fetchData(`/api/offices/`);;
+  }
   render() {
     console.log(this.state.data);
     return (
-      <Fragment style={ { overflow: 'auto' } }>
+      <Fragment>
         {
           !this.state.data ?
             <p>{ this.state.spinner }</p>
@@ -32,6 +49,7 @@ export class Offices extends Component {
                     <th scope="col">#</th>
                     <th scope="col">Office Name</th>
                     <th scope="col">Employees</th>
+                    <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -42,6 +60,7 @@ export class Offices extends Component {
                           <th scope="row">1</th>
                           <td>{ office.office_name }</td>
                           <td>{ office.peopleWorking }</td>
+                          <td><button type="button" onClick={ e => this.handleDelete(e, office.id) } className="btn btn-outline-danger">Delete</button></td>
                         </tr>
                       </Fragment>
                     ))
