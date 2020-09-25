@@ -6,6 +6,9 @@ import uuid
 class Person(models.Model):
     person_name = models.CharField(max_length=20)
     person_age = models.IntegerField()
+    id = models.UUIDField(
+        max_length=36, unique=True, default=uuid.uuid4, primary_key=True, editable=False
+    )
 
     def happyBirthday(self):
         self.person_age += 1
@@ -33,4 +36,3 @@ class Office(models.Model):
 
     def __str__(self):
         return self.office_name
-
