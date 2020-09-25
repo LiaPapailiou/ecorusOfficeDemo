@@ -49,7 +49,7 @@ export class Employees extends Component {
                     <th scope="col">#</th>
                     <th scope="col">Employee Name</th>
                     <th scope="col">Employee Age</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" colSpan="2">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -60,7 +60,7 @@ export class Employees extends Component {
                           <th scope="row">1</th>
                           <td>{ employee.person_name }</td>
                           <td>{ employee.person_age }</td>
-                          <td><button type="button" onClick={ e => this.handleDelete(e, employee.id) } className="btn btn-outline-danger">Delete</button></td>
+                          <td style={ { whiteSpace: 'nowrap' } }><button type="button" onClick={ e => this.handleDelete(e, employee.id) } className="btn btn-outline-danger">Delete</button></td>
                         </tr>
                       </Fragment>
                     ))

@@ -11,14 +11,6 @@ class Person(models.Model):
         User, related_name="person", on_delete=models.CASCADE, null=True
     )
 
-    def happyBirthday(self):
-        self.person_age += 1
-        return self.person_age
-
-    def changeName(self, new_name):
-        self.person_name = new_name
-        return self.person_name
-
     def __str__(self):
         return self.person_name
 
@@ -31,12 +23,6 @@ class Office(models.Model):
     office_owner = models.ForeignKey(
         User, related_name="office", on_delete=models.CASCADE, null=True
     )
-
-    def startWorkingFor(self, person=Person):
-        self.peopleWorking.append(person.person_name)
-
-    def finishedWorkingFor(self, person=Person):
-        self.peopleWorking.remove(person.person_name)
 
     def __str__(self):
         return self.office_name

@@ -49,7 +49,7 @@ export class Offices extends Component {
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Office Name</th>
-                    <th scope="col">Employees</th>
+                    <th scope="col">Employee Names</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
@@ -61,7 +61,7 @@ export class Offices extends Component {
                           <th scope="row">1</th>
                           <td>{ office.office_name }</td>
                           <td>{ office.peopleWorking }</td>
-                          <td><button type="button" onClick={ e => this.handleDelete(e, office.id) } className="btn btn-outline-danger">Delete</button></td>
+                          <td style={ { whiteSpace: 'nowrap' } }><button type="button" onClick={ e => this.handleDelete(e, office.id) } className="btn btn-outline-danger">Delete</button></td>
                         </tr>
                       </Fragment>
                     ))
