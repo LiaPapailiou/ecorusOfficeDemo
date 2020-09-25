@@ -18,10 +18,15 @@ export class FormEmployees extends Component {
 
     axios
       .post(`/api/persons/`, { person_name, person_age })
-      .then((res) => console.log('success', res.data))
+      .then((res) => {
+        console.log('success', res.data);
+        <div className="alert alert-success" role="alert">
+          Employee added successfully
+        </div>;
+      })
       .catch((err) => console.log(err));
 
-    Employees.forceUpdate();
+    window.location.reload();
   };
 
   render() {

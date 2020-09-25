@@ -43,7 +43,7 @@ export class Employees extends Component {
           !this.state.data ?
             <p>{ this.state.spinner }</p>
             : (
-              <table className="table" style={ { marginTop: 40, marginBottom: 40 } }>
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">#</th>

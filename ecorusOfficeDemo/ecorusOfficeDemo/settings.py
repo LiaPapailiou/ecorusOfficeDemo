@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "office",
     "rest_framework",
     "frontend",
+    "knox",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -125,8 +127,12 @@ CORS_ORIGIN_WHITELIST = ["http://localhost:8000"]
 
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
+    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_PARSER_CLASSES": ["rest_framework.parsers.JSONParser",],
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "knox.auth.TokenAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+    ),
 }
 
 CSRF_COOKIE_NAME = "XSRF-TOKEN"

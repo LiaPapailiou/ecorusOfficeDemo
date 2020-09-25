@@ -31,7 +31,7 @@ export class FormOffice extends Component {
   render() {
     const { office_name, peopleWorking } = this.state;
     return (
-      <div className="card card-body mt-4 mb-4">
+      <div className="card card-body mt-4 mb-4" >
         <h2>Office</h2>
         <form onSubmit={ this.onSubmit }>
           <div className="form-group">
