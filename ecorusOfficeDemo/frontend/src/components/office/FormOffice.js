@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export class FormOffice extends Component {
   state = {
     office_name: '',
     peopleWorking: [],
   };
+
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    const { office_name, peopleWorking } = this.state;
+    const office = { office_name, peopleWorking };
+
+    axios
+      .post(`/api/offices/`, { office })
+      .then((res) => console.log('success', res.data))
+      .catch((err) => console.log(err));
   };
 
   render() {

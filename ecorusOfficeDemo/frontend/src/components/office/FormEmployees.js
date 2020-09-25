@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export class FormEmployees extends Component {
   state = {
@@ -10,7 +11,13 @@ export class FormEmployees extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    const { person_name, person_age } = this.state;
+    const person = { person_name, person_age };
+
+    axios
+      .post(`/api/persons/`, { person })
+      .then((res) => console.log('success', res.data))
+      .catch((err) => console.log(err));
   };
   render() {
     const { person_name, person_age } = this.state;
