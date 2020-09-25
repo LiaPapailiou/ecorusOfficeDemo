@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
 export class FormOffice extends Component {
   state = {
     office_name: '',
@@ -12,10 +14,16 @@ export class FormOffice extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { office_name, peopleWorking } = this.state;
-    const office = { office_name, peopleWorking };
-
+    const employee = { office_name, peopleWorking: [peopleWorking] };
+    console.log(employee);
     axios
-      .post(`/api/offices/`, { office })
+      .post(`/api/offices/`, {
+        employee
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
       .then((res) => console.log('success', res.data))
       .catch((err) => console.log(err));
   };

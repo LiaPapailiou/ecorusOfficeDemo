@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import Employees from './Employees';
 import axios from 'axios';
+
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
 export class FormEmployees extends Component {
   state = {
@@ -12,13 +15,15 @@ export class FormEmployees extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { person_name, person_age } = this.state;
-    const person = { person_name, person_age };
 
     axios
-      .post(`/api/persons/`, { person })
+      .post(`/api/persons/`, { person_name, person_age })
       .then((res) => console.log('success', res.data))
       .catch((err) => console.log(err));
+
+    Employees.forceUpdate();
   };
+
   render() {
     const { person_name, person_age } = this.state;
     return (

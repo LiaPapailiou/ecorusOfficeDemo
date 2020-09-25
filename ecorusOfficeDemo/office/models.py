@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.auth.models import User
 import uuid
 
 
 class Person(models.Model):
     person_name = models.CharField(max_length=20)
     person_age = models.IntegerField()
-    id = models.UUIDField(
-        max_length=36, unique=True, default=uuid.uuid4, primary_key=True, editable=False
+    person_owner = models.ForeignKey(
+        User, related_name="person", on_delete=models.CASCADE, null=True
     )
 
     def happyBirthday(self):
@@ -25,7 +26,10 @@ class Person(models.Model):
 class Office(models.Model):
     office_name = models.CharField(max_length=50)
     peopleWorking = ArrayField(
-        models.CharField(max_length=20), default="list", blank=True
+        models.CharField(max_length=20, blank=True), default="list"
+    )
+    office_owner = models.ForeignKey(
+        User, related_name="office", on_delete=models.CASCADE, null=True
     )
 
     def startWorkingFor(self, person=Person):

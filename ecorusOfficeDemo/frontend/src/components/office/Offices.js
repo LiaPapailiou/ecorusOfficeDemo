@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import shortid from 'shortid';
 import axios from 'axios';
 
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
 export class Offices extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +38,6 @@ export class Offices extends Component {
     this.fetchData(`/api/offices/`);;
   }
   render() {
-    console.log(this.state.data);
     return (
       <Fragment>
         {
