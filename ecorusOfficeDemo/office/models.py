@@ -6,11 +6,11 @@ import uuid
 
 class Person(models.Model):
     person_name = models.CharField(max_length=20)
-    person_age = models.IntegerField()
+    person_age = models.IntegerField(null=True)
     person_owner = models.ForeignKey(
         User, related_name="person", on_delete=models.CASCADE, null=True
     )
-    new_name = models.CharField(max_length=20, null=True)
+    person_new_name = models.CharField(max_length=20, null=True)
 
     def happyBirthday(self):
         self.person_age += 1

@@ -11,13 +11,16 @@ from rest_framework.authentication import TokenAuthentication
 
 class PersonView(viewsets.ModelViewSet):
     serializer_class = PersonSerializer
-    queryset = Person.objects.all()
     permission_classes = [permissions.AllowAny]
-    # authentication_classes = (TokenAuthentication,)
 
-    @action(detail=True, methods=["post", "get"])
+    def get_queryset(self):
+        persons = Person.objects.all()
+        return persons
+
+    @action(detail=True, methods=["get", "post"])
     def happyBirthday(self, request, pk=None):
         user = self.get_object()
+        print(user)
         serializer = PersonSerializer(data=request.data)
         if serializer.is_valid():
             user.happyBirthday()
@@ -29,9 +32,11 @@ class PersonView(viewsets.ModelViewSet):
     @action(detail=True, methods=["post", "get"])
     def changeName(self, request, pk=None):
         user = self.get_object()
+        person_data = request.data
+        new_name = person_data.get("person_new_name")
         serializer = PersonSerializer(data=request.data)
         if serializer.is_valid():
-            user.changeName(serializer.data["new_name"])
+            user.changeName(new_name)
             user.save()
             return Response({"status": "name changed"})
         else:
@@ -46,12 +51,12 @@ class PersonView(viewsets.ModelViewSet):
 
 
 class OfficeView(viewsets.ModelViewSet):
-    queryset = Office.objects.all()
     serializer_class = OfficeSerializer
     permission_classes = [permissions.AllowAny]
 
-    # permission_classes = [permissions.IsAuthenticated]
-    # authentication_classes = (TokenAuthentication,)
+    def get_queryset(self):
+        offices = Office.objects.all()
+        return offices
 
     # def get_queryset(self, request):
     #     # return self.request.user.office.all()
