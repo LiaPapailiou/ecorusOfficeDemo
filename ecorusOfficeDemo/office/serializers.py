@@ -5,11 +5,11 @@ from .models import Person, Office
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ("id", "person_name", "person_age")
+        fields = "__all__"
 
 
 class OfficeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Office
-        fields = ("id", "office_name", "peopleWorking")
+        fields = "__all__"
 

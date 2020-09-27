@@ -1,17 +1,19 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from knox.models import AuthToken
 from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
 
 
-class RegisterAPI(generics.GenericAPIView):
-    serializer_class = RegisterSerializer
+class LoginAPI(generics.GenericAPIView):
+    serializer_class = LoginSerializer
+    # permission_classes = ()
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
+        user = serializer.validated_data
         return Response(
             {
                 "user": UserSerializer(
@@ -22,13 +24,13 @@ class RegisterAPI(generics.GenericAPIView):
         )
 
 
-class LoginAPI(generics.GenericAPIView):
-    serializer_class = LoginSerializer
+class RegisterAPI(generics.GenericAPIView):
+    serializer_class = RegisterSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data
+        user = serializer.save()
         return Response(
             {
                 "user": UserSerializer(

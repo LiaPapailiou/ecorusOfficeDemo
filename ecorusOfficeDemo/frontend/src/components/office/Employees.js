@@ -3,7 +3,16 @@ import shortid from 'shortid';
 import axios from 'axios';
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
+const user = JSON.parse(localStorage.getItem('user'));
+const config = {
+  headers: {
+    "Content-Type": "application/json"
+  }
+};
 
+if (user && user.token) {
+  config.headers["Authorization"] = `Token ${user.token}`;
+}
 export class Employees extends Component {
   constructor(props) {
     super(props);
@@ -14,14 +23,12 @@ export class Employees extends Component {
   }
 
   fetchData = (url) => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => this.setState({ data }));
+    fetch(url).then((res) => res.json()).then((data) => this.setState({ data }));
   };
 
   handleDelete = (e, id) => {
     axios
-      .delete(`/api/persons/${id}/`)
+      .delete(`/api/persons/${id}/`, config)
       .then((res) => {
         this.setState((previousState) => {
           return {
@@ -34,7 +41,7 @@ export class Employees extends Component {
       });
   };
   componentDidMount() {
-    this.fetchData(`/api/persons/`);;
+    this.fetchData(`/api/persons`);
   }
   render() {
     return (

@@ -10,6 +10,7 @@ class Person(models.Model):
     person_owner = models.ForeignKey(
         User, related_name="person", on_delete=models.CASCADE, null=True
     )
+    new_name = models.CharField(max_length=20, null=True)
 
     def happyBirthday(self):
         self.person_age += 1

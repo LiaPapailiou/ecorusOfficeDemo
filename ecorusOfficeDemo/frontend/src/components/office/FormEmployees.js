@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import Employees from './Employees';
 import axios from 'axios';
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
+const user = JSON.parse(localStorage.getItem('user'));
+const config = {
+  headers: {
+    "Content-Type": "application/json"
+  }
+};
 
+if (user && user.token) {
+  config.headers["Authorization"] = `Token ${user.token}`;
+}
 export class FormEmployees extends Component {
   state = {
     person_name: '',
@@ -17,7 +25,7 @@ export class FormEmployees extends Component {
     const { person_name, person_age } = this.state;
 
     axios
-      .post(`/api/persons/`, { person_name, person_age })
+      .post(`/api/persons/`, { person_name, person_age }, config)
       .then((res) => {
         console.log('success', res.data);
         <div className="alert alert-success" role="alert">
