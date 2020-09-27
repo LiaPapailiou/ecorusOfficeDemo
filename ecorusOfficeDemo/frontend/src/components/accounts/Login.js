@@ -12,7 +12,7 @@ export class Login extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    // console.log('success');
+
     AuthService.login(this.state.username, this.state.password).then(() => {
       this.props.history.push("/dashboard");
       window.location.reload();

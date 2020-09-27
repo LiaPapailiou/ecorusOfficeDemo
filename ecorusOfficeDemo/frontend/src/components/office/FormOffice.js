@@ -17,23 +17,25 @@ export class FormOffice extends Component {
   state = {
     office_name: '',
     peopleWorking: [],
+    employee: '',
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { office_name, peopleWorking } = this.state;
-    const employee = { office_name, peopleWorking: [peopleWorking] };
-    console.log(employee);
+    const { office_name, } = this.state;
+
     axios
-      .post(`/api/offices/`, { employee }, config)
-      .then((res) => console.log('success', res.data))
+      .post(`/api/offices/`, { office_name }, config)
+      .then((res) => res.json())
       .catch((err) => console.log(err));
+
+    window.location.reload();
   };
 
   render() {
-    const { office_name, peopleWorking } = this.state;
+    const { office_name, } = this.state;
     return (
       <div className="card card-body mt-4 mb-4" >
         <h2>Office</h2>
@@ -47,16 +49,6 @@ export class FormOffice extends Component {
               className="form-control"
               onChange={ this.onChange }
               required
-            />
-          </div>
-          <div className="form-group">
-            <label>Employees</label>
-            <input
-              type="text"
-              name="peopleWorking"
-              value={ peopleWorking }
-              className="form-control"
-              onChange={ this.onChange }
             />
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
