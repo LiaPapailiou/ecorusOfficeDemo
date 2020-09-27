@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import shortid from 'shortid';
 import axios from 'axios';
+import EditEmployee from './EditEmployee';
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 const user = JSON.parse(localStorage.getItem('user'));
@@ -40,6 +42,8 @@ export class Employees extends Component {
         console.log(err);
       });
   };
+
+
   componentDidMount() {
     this.fetchData(`/api/persons`);
   }
@@ -68,6 +72,9 @@ export class Employees extends Component {
                           <td>{ employee.person_name }</td>
                           <td>{ employee.person_age }</td>
                           <td style={ { whiteSpace: 'nowrap' } }><button type="button" onClick={ e => this.handleDelete(e, employee.id) } className="btn btn-outline-danger">Delete</button></td>
+                          <td style={ { whiteSpace: 'nowrap', } }>
+                            <Link to={ `/dashboard/employee/${employee.id}` } className="btn btn-outline-info">Edit</Link>
+                          </td>
                         </tr>
                       </Fragment>
                     ))

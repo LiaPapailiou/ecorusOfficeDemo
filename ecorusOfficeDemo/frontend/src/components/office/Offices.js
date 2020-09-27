@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import shortid from 'shortid';
 import axios from 'axios';
 
@@ -70,6 +71,9 @@ export class Offices extends Component {
                           <td>{ office.office_name }</td>
                           <td>{ office.peopleWorking }</td>
                           <td style={ { whiteSpace: 'nowrap' } }><button type="button" onClick={ e => this.handleDelete(e, office.id) } className="btn btn-outline-danger">Delete</button></td>
+                          <td style={ { whiteSpace: 'nowrap', } }>
+                            <Link to={ `/dashboard/employee/${office.id}` } className="btn btn-outline-info">Edit</Link>
+                          </td>
                         </tr>
                       </Fragment>
                     ))

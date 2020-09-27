@@ -6,6 +6,8 @@ import Dashboard from './office/Dashboard';
 import Register from '../components/accounts/Register';
 import Login from '../components/accounts/Login';
 import ProtectedRoute from '../components/routes/ProtectedRoute';
+import EditEmployee from '../components/office/EditEmployee';
+import EditOffice from '../components/office/EditOffice';
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
             <Route exact path="/register" component={ Register } />
             <Route exact path="/login" component={ Login } />
             <ProtectedRoute exact path="/dashboard" component={ Dashboard } />
+            <ProtectedRoute exact path="/dashboard/employee/:id" component={ EditEmployee } />
+            <ProtectedRoute exact path="/dashboard/office/:id" component={ EditOffice } />
           </Switch>
         </div>
       </Fragment>
