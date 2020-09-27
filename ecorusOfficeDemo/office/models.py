@@ -27,17 +27,18 @@ class Person(models.Model):
 class Office(models.Model):
     office_name = models.CharField(max_length=50)
     peopleWorking = ArrayField(
-        models.CharField(max_length=20, blank=True), default="list"
+        models.CharField(max_length=20, blank=True), default=list, null=True
     )
     office_owner = models.ForeignKey(
         User, related_name="office", on_delete=models.CASCADE, null=True
     )
+    employee = models.CharField(max_length=20, null=True)
 
-    def startWorkingFor(self, person=Person):
-        self.peopleWorking.append(person.person_name)
+    def startWorkingFor(self, employee_name):
+        self.peopleWorking.append(employee_name)
 
-    def finishedWorkingFor(self, person=Person):
-        self.peopleWorking.remove(person.person_name)
+    def finishedWorkingFor(self, employee_name):
+        self.peopleWorking.remove(employee_name)
 
     def __str__(self):
         return self.office_name

@@ -25,7 +25,7 @@ class PersonView(viewsets.ModelViewSet):
         if serializer.is_valid():
             user.happyBirthday()
             user.save()
-            return Response({"status": "happy birthday"})
+            return Response(serializer.data, status=200)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -38,16 +38,9 @@ class PersonView(viewsets.ModelViewSet):
         if serializer.is_valid():
             user.changeName(new_name)
             user.save()
-            return Response({"status": "name changed"})
+            return Response(serializer.data, status=200)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    # def get_queryset(self, request):
-    #     # return self.request.user.person.all()
-    #     return Person.objects.filter(person_owner=request.user)
-
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
 
 
 class OfficeView(viewsets.ModelViewSet):
@@ -58,10 +51,28 @@ class OfficeView(viewsets.ModelViewSet):
         offices = Office.objects.all()
         return offices
 
-    # def get_queryset(self, request):
-    #     # return self.request.user.office.all()
-    #     return Person.objects.filter(office_owner=request.user)
+    @action(detail=True, methods=["get", "post"])
+    def startWorkingFor(self, request, pk=None):
+        user = self.get_object()
+        person_data = request.data.get("employee")
+        print({person_data})
+        serializer = OfficeSerializer(data=request.data)
+        if serializer.is_valid():
+            user.startWorkingFor(person_data)
+            user.save()
+            return Response(serializer.data, status=200)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
-
+    @action(detail=True, methods=["post", "get"])
+    def finishedWorkingFor(self, request, pk=None):
+        user = self.get_object()
+        person_data = request.data.get("employee")
+        print(person_data)
+        serializer = OfficeSerializer(data=request.data)
+        if serializer.is_valid():
+            user.finishedWorkingFor(person_data)
+            user.save()
+            return Response(serializer.data, status=200)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
