@@ -2,16 +2,7 @@ import React, { Component } from 'react';
 import axios from 'Axios';
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
-const user = JSON.parse(localStorage.getItem('user'));
-const config = {
-  headers: {
-    "Content-Type": "application/json"
-  }
-};
 
-if (user && user.token) {
-  config.headers["Authorization"] = `Token ${user.token}`;
-}
 export class EditEmployee extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +18,7 @@ export class EditEmployee extends Component {
   };
 
   componentDidMount() {
-    this.fetchData(`/api/persons/${this.props.match.params.id}`);
+    this.fetchData(`/api/persons/${this.props.match.params.id}/`);
   }
 
   onChange = (e) => {
@@ -35,12 +26,26 @@ export class EditEmployee extends Component {
     console.log(e.target.value);
   };
 
+
   onSubmit = (e) => {
     e.preventDefault();
-    const { person_name, person_age, person_new_name } = this.state;
-    axios.post(`/api/persons/${this.props.match.params.id}/happyBirthday/`, { person_name, }, config)
-      .then((res) => res.json())
+    const { person_name, person_new_name } = this.state;
+    if (person_new_name !== null) {
+      axios.post(`/api/persons/${this.props.match.params.id}/changeName/`, { person_name, person_new_name })
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
+    }
+    if (person_name !== null) {
+      axios.put(`/api/persons/${this.props.match.params.id}/`, { person_name })
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
+    }
+
+    axios.post(`/api/persons/${this.props.match.params.id}/happyBirthday/`, { person_name, })
+      .then((res) => res)
       .catch((err) => console.log(err));
+
+    window.location.reload();
   };
   render() {
     const { person_name, person_age, person_new_name } = this.state;
@@ -61,19 +66,10 @@ export class EditEmployee extends Component {
                       placeholder={ `${this.state.data.person_name}` }
                       className="form-control"
                       onChange={ this.onChange }
+                      required
                     />
                   </div>
-                  <div className="form-group">
-                    <label>Age</label>
-                    <input
-                      type="text"
-                      name="person_age"
-                      value={ person_age }
-                      placeholder={ `${this.state.data.person_age}` }
-                      className="form-control"
-                      onChange={ this.onChange }
-                    />
-                  </div>
+                  <p>Age: { this.state.data.person_age }</p>
                   <div className="form-group">
                     <label>Change Name</label>
                     <input

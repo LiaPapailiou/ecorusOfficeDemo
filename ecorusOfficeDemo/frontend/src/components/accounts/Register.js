@@ -15,7 +15,7 @@ export class Register extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { username, email, password } = this.state;
-    // console.log('success');
+
     AuthService.register(username, email, password)
       .then((res) => {
         this.setState({

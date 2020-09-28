@@ -2,16 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
-const user = JSON.parse(localStorage.getItem('user'));
-const config = {
-  headers: {
-    "Content-Type": "application/json"
-  }
-};
 
-if (user && user.token) {
-  config.headers["Authorization"] = `Token ${user.token}`;
-}
 
 export class FormOffice extends Component {
   state = {
@@ -27,7 +18,7 @@ export class FormOffice extends Component {
     const { office_name, } = this.state;
 
     axios
-      .post(`/api/offices/`, { office_name }, config)
+      .post(`/api/offices/`, { office_name })
       .then((res) => res.json())
       .catch((err) => console.log(err));
 

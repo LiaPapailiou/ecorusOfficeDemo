@@ -146,4 +146,3 @@ CSRF_COOKIE_NAME = "XSRF-TOKEN"
 
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
-USE_X_FORWARDED_HOST = True

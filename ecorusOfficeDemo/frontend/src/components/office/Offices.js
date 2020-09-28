@@ -59,20 +59,20 @@ export class Offices extends Component {
                     <th scope="col">#</th>
                     <th scope="col">Office Name</th>
                     <th scope="col">Employee Names</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" colSpan="2">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {
-                    this.state.data.map((office) => (
+                    this.state.data.map((office, idx) => (
                       <Fragment key={ shortid.generate() }>
                         <tr>
-                          <th scope="row">1</th>
+                          <th scope="row">{ idx + 1 }</th>
                           <td>{ office.office_name }</td>
                           <td>{ office.peopleWorking }</td>
                           <td style={ { whiteSpace: 'nowrap' } }><button type="button" onClick={ e => this.handleDelete(e, office.id) } className="btn btn-outline-danger">Delete</button></td>
                           <td style={ { whiteSpace: 'nowrap', } }>
-                            <Link to={ `/dashboard/employee/${office.id}` } className="btn btn-outline-info">Edit</Link>
+                            <Link to={ `/dashboard/office/${office.id}` } className="btn btn-outline-info">Edit</Link>
                           </td>
                         </tr>
                       </Fragment>

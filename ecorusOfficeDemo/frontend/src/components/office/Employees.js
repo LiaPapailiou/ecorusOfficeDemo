@@ -2,19 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import shortid from 'shortid';
 import axios from 'axios';
-import EditEmployee from './EditEmployee';
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
-const user = JSON.parse(localStorage.getItem('user'));
-const config = {
-  headers: {
-    "Content-Type": "application/json"
-  }
-};
 
-if (user && user.token) {
-  config.headers["Authorization"] = `Token ${user.token}`;
-}
 export class Employees extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +20,7 @@ export class Employees extends Component {
 
   handleDelete = (e, id) => {
     axios
-      .delete(`/api/persons/${id}/`, config)
+      .delete(`/api/persons/${id}/`)
       .then((res) => {
         this.setState((previousState) => {
           return {
@@ -65,10 +55,10 @@ export class Employees extends Component {
                 </thead>
                 <tbody>
                   {
-                    this.state.data.map((employee) => (
+                    this.state.data.map((employee, idx) => (
                       <Fragment key={ shortid.generate() }>
                         <tr>
-                          <th scope="row">1</th>
+                          <th scope="row">{ idx + 1 }</th>
                           <td>{ employee.person_name }</td>
                           <td>{ employee.person_age }</td>
                           <td style={ { whiteSpace: 'nowrap' } }><button type="button" onClick={ e => this.handleDelete(e, employee.id) } className="btn btn-outline-danger">Delete</button></td>
