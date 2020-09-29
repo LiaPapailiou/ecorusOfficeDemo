@@ -1,4 +1,4 @@
-# Ecorus Office Demo
+# Office Demo
 
 ```
 # Installation
