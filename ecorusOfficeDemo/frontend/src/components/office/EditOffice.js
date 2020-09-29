@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import axios from 'Axios';
+import axios from 'axios';
 import shortid from 'shortid';
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
