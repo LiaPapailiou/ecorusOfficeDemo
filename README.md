@@ -39,3 +39,4 @@ npm run build
 * Fix the database models
 * Add authorization for CRUD operations
 * Fix logic errors
+* Error handling in both frontend and backend
