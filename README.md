@@ -1,5 +1,7 @@
 # Office Demo
 
+A small application to practice Django & Django Rest Framework.
+
 ```
 # Installation
 npm install
@@ -13,7 +15,4 @@ npm run dev
 # Build for production
 npm run build
 
-# Backend APIs 
-http:/localhost:8000/api/offices/
-http:/localhost:8000/api/persons/
 ```
