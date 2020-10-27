@@ -5,7 +5,7 @@ from office import views
 
 router = routers.DefaultRouter()
 router.register(r"offices", views.OfficeView, "office")
-router.register(r"persons", views.PersonView, "office")
+router.register(r"persons", views.PersonView, "person")
 
 
 urlpatterns = [
