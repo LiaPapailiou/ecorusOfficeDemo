@@ -1,11 +1,15 @@
 # Office Demo
 * [General Info](#General-Info)
-* [Screenshots](#Screenshots)
+* [Technologies](#Technologies)
 * [Installation](#Installation)
+* [Screenshots](#Screenshots)
 * [To-do](#To-do)
 
 ## General Info
 A small application to practice Django & Django Rest Framework.
+
+## Technologies
+PostgreSQL, Django, Django Rest Framework, Webpack, Bootstrap
 
 ## Installation
 ```
